@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block title %}All Tickets{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">🎟 All Tickets Dashboard</h2>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4 text-center">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6>Total Tickets</h6>
+                    <p class="display-6">{{ tickets|length }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-success">
+                <div class="card-body">
+                    <h6>Confirmed</h6>
+                    <p class="display-6">{{ confirmed }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-warning">
+                <div class="card-body">
+                    <h6>Pending</h6>
+                    <p class="display-6">{{ pending }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm text-danger">
+                <div class="card-body">
+                    <h6>Cancelled</h6>
+                    <p class="display-6">{{ cancelled }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue -->
+    <div class="alert alert-info text-center">
+        💰 Total Revenue: <strong>Rs. {{ total_revenue }}</strong>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Attendee</th>
+                    <th>Email</th>
+                    <th>Event</th>
+                    <th>Seat</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ ticket.attendee.name }}</td>
+                    <td>{{ ticket.attendee.email }}</td>
+                    <td>{{ ticket.event.title }}</td>
+                    <td>{{ ticket.seat_number }}</td>
+                    <td>Rs. {{ ticket.price }}</td>
+                    <td>
+                        {% if ticket.status == 'a' %}
+                            <span class="badge bg-success">Confirmed</span>
+                        {% elif ticket.status == 'b' %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% else %}
+                            <span class="badge bg-danger">Cancelled</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

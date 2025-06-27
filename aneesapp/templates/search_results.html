@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Search Results for: "{{ query }}"</h3>
+
+  <hr>
+  <h4>🎉 Events</h4>
+  {% if events %}
+    <ul>
+      {% for event in events %}
+        <li><strong>{{ event.title }}</strong> — {{ event.date }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No events found.</p>
+  {% endif %}
+
+  <hr>
+  <h4>👥 Attendees</h4>
+  {% if attendees %}
+    <ul>
+      {% for attendee in attendees %}
+        <li>{{ attendee.name }} — {{ attendee.email }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No attendees found.</p>
+  {% endif %}
+
+  <hr>
+  <h4>🎟 Tickets</h4>
+  {% if tickets %}
+    <ul>
+      {% for ticket in tickets %}
+        <li>Seat {{ ticket.seat_number }} — {{ ticket.get_status_display }} — Event: {{ ticket.event.title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No tickets found.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}All Attendees{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">📋 Registered Attendees</h2>
+
+    {% if tickets %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Event</th>
+                    <th>Ticket Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ ticket.attendee.name }}</td>
+                    <td>{{ ticket.attendee.email }}</td>
+                    <td>{{ ticket.attendee.phone }}</td>
+                    <td>{{ ticket.event.title }}</td>
+                    <td>
+                        Seat: {{ ticket.seat_number }}<br>
+                        Price: Rs. {{ ticket.price }}<br>
+                        Status: {{ ticket.get_status_display }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-muted">No tickets found.</p>
+    {% endif %}
+</div>
+{% endblock %}

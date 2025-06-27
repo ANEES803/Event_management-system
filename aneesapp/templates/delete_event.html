@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}
+Delete Event
+{% endblock %}
+{% block content %}
+<h1 class="text-center text-white mt-4">Are you sure you gonna delete this Event</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+        <a class="btn btn-success" href=" {% url 'create_event' %}">
+            Cancel
+        </a>
+    </form>
+    {% endblock %}
+
+
+
+

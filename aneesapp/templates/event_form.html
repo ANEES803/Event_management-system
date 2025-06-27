@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}All Events{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="display-6">📅 All Events</h1>
+  <div>
+    <a href="{% url 'create_event' %}" class="btn btn-success me-2">
+      ➕ Create New Event
+    </a>
+    <a href="{% url 'register_attend' %}" class="btn btn-primary">
+      🙋‍♂️ Register Attendee
+    </a>
+  </div>
+</div>
+
+{% if events %}
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-dark table-hover table-bordered align-middle">
+      <thead class="table-light text-dark">
+        <tr>
+          <th>Title</th>
+          <th>Date & Time</th>
+          <th>Venue</th>
+          <th>Created At</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td><strong>{{ event.title }}</strong><br><small>{{ event.description }}</small></td>
+          <td>{{ event.date|date:"D, d M Y h:i A" }}</td>
+          <td>{{ event.venue }}</td>
+          <td>{{ event.created_at|date:"d M Y h:i A" }}</td>
+          <td class="text-center">
+            <a class="btn btn-sm btn-outline-primary mb-1" href="{% url 'edit_event' event.id %}">✏️ Edit</a>
+            <a class="btn btn-sm btn-outline-danger mb-1" href="{% url 'delete_event' event.id %}">🗑️ Delete</a>
+            
+            <a class="btn btn-sm btn-outline-info mb-1" href="{% url 'ticket_system' event.id %}">🎟️ Ticket</a>
+            <a class="btn btn-sm btn-outline-dark mb-1" href="{% url 'details' event.id %}">🔍 Details</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="alert alert-warning text-center" role="alert">
+    No events found. Please create one using the "Create New Event" button.
+  </div>
+{% endif %}
+
+{% endblock %}
