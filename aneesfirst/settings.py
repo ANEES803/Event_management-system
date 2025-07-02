@@ -10,7 +10,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-default-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # Allowed hosts for Render
-ALLOWED_HOSTS = ['event.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['event-management-system-me2b.onrender.com', '127.0.0.1', 'localhost']
 
 # Installed apps
 INSTALLED_APPS = [
