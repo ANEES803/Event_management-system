@@ -116,7 +116,7 @@ def all_attendees(request):
 
 from django.shortcuts import render
 from .models import Ticket
-
+@login_required
 def event_tickets(request):
     tickets = Ticket.objects.select_related('event', 'attendee').all()
     total_revenue = sum(t.price for t in tickets)
